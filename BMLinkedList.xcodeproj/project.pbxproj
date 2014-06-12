@@ -1,0 +1,420 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		B54C9DFE1949442F005536DB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B54C9DFD1949442F005536DB /* Foundation.framework */; };
+		B54C9E031949442F005536DB /* BMLinkedList.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = B54C9E021949442F005536DB /* BMLinkedList.h */; };
+		B54C9E051949442F005536DB /* BMLinkedList.m in Sources */ = {isa = PBXBuildFile; fileRef = B54C9E041949442F005536DB /* BMLinkedList.m */; };
+		B54C9E0C1949442F005536DB /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B54C9E0B1949442F005536DB /* XCTest.framework */; };
+		B54C9E0D1949442F005536DB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B54C9DFD1949442F005536DB /* Foundation.framework */; };
+		B54C9E0F1949442F005536DB /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B54C9E0E1949442F005536DB /* UIKit.framework */; };
+		B54C9E121949442F005536DB /* libBMLinkedList.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B54C9DFA1949442F005536DB /* libBMLinkedList.a */; };
+		B54C9E181949442F005536DB /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = B54C9E161949442F005536DB /* InfoPlist.strings */; };
+		B54C9E1A1949442F005536DB /* BMLinkedListTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B54C9E191949442F005536DB /* BMLinkedListTests.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		B54C9E101949442F005536DB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B54C9DF21949442F005536DB /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B54C9DF91949442F005536DB;
+			remoteInfo = BMLinkedList;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		B54C9DF81949442F005536DB /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "include/$(PRODUCT_NAME)";
+			dstSubfolderSpec = 16;
+			files = (
+				B54C9E031949442F005536DB /* BMLinkedList.h in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		B54C9DFA1949442F005536DB /* libBMLinkedList.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libBMLinkedList.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		B54C9DFD1949442F005536DB /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		B54C9E011949442F005536DB /* BMLinkedList-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "BMLinkedList-Prefix.pch"; sourceTree = "<group>"; };
+		B54C9E021949442F005536DB /* BMLinkedList.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BMLinkedList.h; sourceTree = "<group>"; };
+		B54C9E041949442F005536DB /* BMLinkedList.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BMLinkedList.m; sourceTree = "<group>"; };
+		B54C9E0A1949442F005536DB /* BMLinkedListTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BMLinkedListTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		B54C9E0B1949442F005536DB /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		B54C9E0E1949442F005536DB /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
+		B54C9E151949442F005536DB /* BMLinkedListTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "BMLinkedListTests-Info.plist"; sourceTree = "<group>"; };
+		B54C9E171949442F005536DB /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		B54C9E191949442F005536DB /* BMLinkedListTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BMLinkedListTests.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		B54C9DF71949442F005536DB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B54C9DFE1949442F005536DB /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B54C9E071949442F005536DB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B54C9E0C1949442F005536DB /* XCTest.framework in Frameworks */,
+				B54C9E121949442F005536DB /* libBMLinkedList.a in Frameworks */,
+				B54C9E0F1949442F005536DB /* UIKit.framework in Frameworks */,
+				B54C9E0D1949442F005536DB /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		B54C9DF11949442F005536DB = {
+			isa = PBXGroup;
+			children = (
+				B54C9DFF1949442F005536DB /* BMLinkedList */,
+				B54C9E131949442F005536DB /* BMLinkedListTests */,
+				B54C9DFC1949442F005536DB /* Frameworks */,
+				B54C9DFB1949442F005536DB /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		B54C9DFB1949442F005536DB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				B54C9DFA1949442F005536DB /* libBMLinkedList.a */,
+				B54C9E0A1949442F005536DB /* BMLinkedListTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		B54C9DFC1949442F005536DB /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				B54C9DFD1949442F005536DB /* Foundation.framework */,
+				B54C9E0B1949442F005536DB /* XCTest.framework */,
+				B54C9E0E1949442F005536DB /* UIKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		B54C9DFF1949442F005536DB /* BMLinkedList */ = {
+			isa = PBXGroup;
+			children = (
+				B54C9E021949442F005536DB /* BMLinkedList.h */,
+				B54C9E041949442F005536DB /* BMLinkedList.m */,
+				B54C9E001949442F005536DB /* Supporting Files */,
+			);
+			path = BMLinkedList;
+			sourceTree = "<group>";
+		};
+		B54C9E001949442F005536DB /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				B54C9E011949442F005536DB /* BMLinkedList-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		B54C9E131949442F005536DB /* BMLinkedListTests */ = {
+			isa = PBXGroup;
+			children = (
+				B54C9E191949442F005536DB /* BMLinkedListTests.m */,
+				B54C9E141949442F005536DB /* Supporting Files */,
+			);
+			path = BMLinkedListTests;
+			sourceTree = "<group>";
+		};
+		B54C9E141949442F005536DB /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				B54C9E151949442F005536DB /* BMLinkedListTests-Info.plist */,
+				B54C9E161949442F005536DB /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		B54C9DF91949442F005536DB /* BMLinkedList */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B54C9E1D1949442F005536DB /* Build configuration list for PBXNativeTarget "BMLinkedList" */;
+			buildPhases = (
+				B54C9DF61949442F005536DB /* Sources */,
+				B54C9DF71949442F005536DB /* Frameworks */,
+				B54C9DF81949442F005536DB /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = BMLinkedList;
+			productName = BMLinkedList;
+			productReference = B54C9DFA1949442F005536DB /* libBMLinkedList.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		B54C9E091949442F005536DB /* BMLinkedListTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B54C9E201949442F005536DB /* Build configuration list for PBXNativeTarget "BMLinkedListTests" */;
+			buildPhases = (
+				B54C9E061949442F005536DB /* Sources */,
+				B54C9E071949442F005536DB /* Frameworks */,
+				B54C9E081949442F005536DB /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				B54C9E111949442F005536DB /* PBXTargetDependency */,
+			);
+			name = BMLinkedListTests;
+			productName = BMLinkedListTests;
+			productReference = B54C9E0A1949442F005536DB /* BMLinkedListTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		B54C9DF21949442F005536DB /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0510;
+				ORGANIZATIONNAME = "Benjamin Morrison";
+			};
+			buildConfigurationList = B54C9DF51949442F005536DB /* Build configuration list for PBXProject "BMLinkedList" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = B54C9DF11949442F005536DB;
+			productRefGroup = B54C9DFB1949442F005536DB /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				B54C9DF91949442F005536DB /* BMLinkedList */,
+				B54C9E091949442F005536DB /* BMLinkedListTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		B54C9E081949442F005536DB /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B54C9E181949442F005536DB /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		B54C9DF61949442F005536DB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B54C9E051949442F005536DB /* BMLinkedList.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B54C9E061949442F005536DB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B54C9E1A1949442F005536DB /* BMLinkedListTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		B54C9E111949442F005536DB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = B54C9DF91949442F005536DB /* BMLinkedList */;
+			targetProxy = B54C9E101949442F005536DB /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		B54C9E161949442F005536DB /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				B54C9E171949442F005536DB /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		B54C9E1B1949442F005536DB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		B54C9E1C1949442F005536DB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		B54C9E1E1949442F005536DB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DSTROOT = /tmp/BMLinkedList.dst;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "BMLinkedList/BMLinkedList-Prefix.pch";
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		B54C9E1F1949442F005536DB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DSTROOT = /tmp/BMLinkedList.dst;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "BMLinkedList/BMLinkedList-Prefix.pch";
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		B54C9E211949442F005536DB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "BMLinkedList/BMLinkedList-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "BMLinkedListTests/BMLinkedListTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Debug;
+		};
+		B54C9E221949442F005536DB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "BMLinkedList/BMLinkedList-Prefix.pch";
+				INFOPLIST_FILE = "BMLinkedListTests/BMLinkedListTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		B54C9DF51949442F005536DB /* Build configuration list for PBXProject "BMLinkedList" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B54C9E1B1949442F005536DB /* Debug */,
+				B54C9E1C1949442F005536DB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B54C9E1D1949442F005536DB /* Build configuration list for PBXNativeTarget "BMLinkedList" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B54C9E1E1949442F005536DB /* Debug */,
+				B54C9E1F1949442F005536DB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		B54C9E201949442F005536DB /* Build configuration list for PBXNativeTarget "BMLinkedListTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B54C9E211949442F005536DB /* Debug */,
+				B54C9E221949442F005536DB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = B54C9DF21949442F005536DB /* Project object */;
+}
