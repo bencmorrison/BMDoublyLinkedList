@@ -44,7 +44,7 @@ extern NSString *const BMLinkedListExceptionDictionaryFailedSearchedForNode;
 - (instancetype)init;
 - (instancetype)initFromArray:(NSArray *)array;
 + (instancetype)linkedList;
-+ (instancetype)listFronArray:(NSArray *)array;
++ (instancetype)listFromArray:(NSArray *)array;
 
 // Inserters
 - (void)pushFront:(id)anObject;

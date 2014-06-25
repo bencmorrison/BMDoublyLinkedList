@@ -20,7 +20,7 @@ NSString *const BMLinkedListExceptionDictionaryKeyHeadObject = @"BMLinkedListExc
 NSString *const BMLinkedListExceptionDictionaryFailedSearchedForObject = @"BMLinkedListExceptionDictionaryFailedSearchedForObject";
 NSString *const BMLinkedListExceptionDictionaryFailedSearchedForNode = @"BMLinkedListExceptionDictionaryFailedSearchedForNode";
 
-static NSString *const BMLinkedListOutOfBoundsExceptionFormatString = @"Index (%s) out of bounds of list count.";
+static NSString *const BMLinkedListOutOfBoundsExceptionFormatString = @"Index (%lu) out of bounds of list count.";
 static NSString *const BMLinkedListConsistencyExceptionMessage = @"List Consistency Issue. Head, Tail, and Count are not as expected";
 static NSString *const BMLinkedListExceptionDictionaryFailedSearchedForObjectMessage = @"Object Not Found.";
 static NSString *const BMLinkedListExceptionDictionaryFailedSearchedForNodeMessage = @"Node Not Found.";
@@ -86,7 +86,7 @@ static NSString *const BMLinkedListExceptionDictionaryFailedSearchedForNodeMessa
 @interface BMDoublyLinkedList ()
 
 - (BMDoublyLinkedListNode *)nodeByTraversingBackwards:(NSUInteger)timesBackwards timesFromNode:(BMDoublyLinkedListNode *)aNode;
-- (BMDoublyLinkedListNode *)nodeByTraversingForward:(NSUInteger)timesFowards timesFromNode:(BMDoublyLinkedListNode *)aNode;
+- (BMDoublyLinkedListNode *)nodeByTraversingForward:(NSUInteger)timesForwards timesFromNode:(BMDoublyLinkedListNode *)aNode;
 
 - (BOOL)shouldThrowConsistencyException;
 
@@ -137,7 +137,7 @@ static NSString *const BMLinkedListExceptionDictionaryFailedSearchedForNodeMessa
 
 
 
-+ (instancetype)listFronArray:(NSArray *)array {
++ (instancetype)listFromArray:(NSArray *)array {
     return [[BMDoublyLinkedList alloc] initFromArray:array];
 }
 
@@ -523,13 +523,9 @@ static NSString *const BMLinkedListExceptionDictionaryFailedSearchedForNodeMessa
 
 
 - (BOOL)containsObject:(id)anObject {
-    BMDoublyLinkedListNode *retrevedObject = [self nodeForObject:anObject];
-    
-    if (retrevedObject != nil) {
-        return (retrevedObject.object == anObject);
-    }
-    
-    return NO;
+    BMDoublyLinkedListNode *retrievedObject = [self nodeForObject:anObject];
+
+    return (retrievedObject.object == anObject);
 }
 
 
@@ -648,11 +644,11 @@ static NSString *const BMLinkedListExceptionDictionaryFailedSearchedForNodeMessa
 
 
 
-- (BMDoublyLinkedListNode *)nodeByTraversingForward:(NSUInteger)timesFoward timesFromNode:(BMDoublyLinkedListNode *)aNode {
+- (BMDoublyLinkedListNode *)nodeByTraversingForward:(NSUInteger)timesForwards timesFromNode:(BMDoublyLinkedListNode *)aNode {
     
     BMDoublyLinkedListNode *currentNode = aNode;
     
-    for (NSUInteger i = 0; i < timesFoward; ++i) {
+    for (NSUInteger i = 0; i < timesForwards; ++i) {
         currentNode = currentNode.nextNode;
     }
     

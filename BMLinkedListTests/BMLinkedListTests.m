@@ -397,7 +397,7 @@
     }
 
     currentNode = sut.tail;
-    for (NSUInteger i = array.count - 1; i >= 0; --i) {
+    for (NSUInteger i = array.count - 1; i < -1; --i) {
         if (currentNode.object != [array objectAtIndex:i]) {
             XCTFail(@"removeObjectAtIndex failed backwards traversal at index:%i in \"%s\"",1,  __PRETTY_FUNCTION__);
         }
