@@ -8,16 +8,16 @@
 
 #import <Foundation/Foundation.h>
 
-extern NSString *const BMLinkedListOutOfBoundsException;
-extern NSString *const BMLinkedListConsistencyException;
-extern NSString *const BMLinkedListObjectNotFoundException;
-extern NSString *const BMLinkedListNodeNotFoundException;
+extern NSString *const BMDoublyLinkedListOutOfBoundsException;
+extern NSString *const BMDoublyLinkedListConsistencyException;
+extern NSString *const BMDoublyLinkedListObjectNotFoundException;
+extern NSString *const BMDoublyLinkedListNodeNotFoundException;
 
-extern NSString *const BMLinkedListExceptionDictionaryKeyCount;
-extern NSString *const BMLinkedListExceptionDictionaryKeyTailObject;
-extern NSString *const BMLinkedListExceptionDictionaryKeyHeadObject;
-extern NSString *const BMLinkedListExceptionDictionaryFailedSearchedForObject;
-extern NSString *const BMLinkedListExceptionDictionaryFailedSearchedForNode;
+extern NSString *const BMDoublyLinkedListExceptionDictionaryKeyCount;
+extern NSString *const BMDoublyLinkedListExceptionDictionaryKeyTailObject;
+extern NSString *const BMDoublyLinkedListExceptionDictionaryKeyHeadObject;
+extern NSString *const BMDoublyLinkedListExceptionDictionaryFailedSearchedForObject;
+extern NSString *const BMDoublyLinkedListExceptionDictionaryFailedSearchedForNode;
 
 
 @interface BMDoublyLinkedListNode : NSObject

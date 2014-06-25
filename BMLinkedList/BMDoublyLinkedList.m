@@ -9,21 +9,21 @@
 #import <Foundation/Foundation.h>
 #import "BMDoublyLinkedList.h"
 
-NSString *const BMLinkedListOutOfBoundsException = @"BMLinkedListOutOfBoundsException";
-NSString *const BMLinkedListConsistencyException = @"BMLinkedListConsistencyException";
-NSString *const BMLinkedListObjectNotFoundException = @"BMLinkedListObjectNotFoundException";
-NSString *const BMLinkedListNodeNotFoundException = @"BMLinkedListNodeNotFoundException";
+NSString *const BMDoublyLinkedListOutOfBoundsException = @"BMLinkedListOutOfBoundsException";
+NSString *const BMDoublyLinkedListConsistencyException = @"BMLinkedListConsistencyException";
+NSString *const BMDoublyLinkedListObjectNotFoundException = @"BMLinkedListObjectNotFoundException";
+NSString *const BMDoublyLinkedListNodeNotFoundException = @"BMLinkedListNodeNotFoundException";
 
-NSString *const BMLinkedListExceptionDictionaryKeyCount = @"BMLinkedListExceptionDictionaryKeyCount";
-NSString *const BMLinkedListExceptionDictionaryKeyTailObject = @"BMLinkedListExceptionDictionaryKeyTailObject";
-NSString *const BMLinkedListExceptionDictionaryKeyHeadObject = @"BMLinkedListExceptionDictionaryKeyHeadObject";
-NSString *const BMLinkedListExceptionDictionaryFailedSearchedForObject = @"BMLinkedListExceptionDictionaryFailedSearchedForObject";
-NSString *const BMLinkedListExceptionDictionaryFailedSearchedForNode = @"BMLinkedListExceptionDictionaryFailedSearchedForNode";
+NSString *const BMDoublyLinkedListExceptionDictionaryKeyCount = @"BMLinkedListExceptionDictionaryKeyCount";
+NSString *const BMDoublyLinkedListExceptionDictionaryKeyTailObject = @"BMLinkedListExceptionDictionaryKeyTailObject";
+NSString *const BMDoublyLinkedListExceptionDictionaryKeyHeadObject = @"BMLinkedListExceptionDictionaryKeyHeadObject";
+NSString *const BMDoublyLinkedListExceptionDictionaryFailedSearchedForObject = @"BMLinkedListExceptionDictionaryFailedSearchedForObject";
+NSString *const BMDoublyLinkedListExceptionDictionaryFailedSearchedForNode = @"BMLinkedListExceptionDictionaryFailedSearchedForNode";
 
-static NSString *const BMLinkedListOutOfBoundsExceptionFormatString = @"Index (%lu) out of bounds of list count.";
-static NSString *const BMLinkedListConsistencyExceptionMessage = @"List Consistency Issue. Head, Tail, and Count are not as expected";
-static NSString *const BMLinkedListExceptionDictionaryFailedSearchedForObjectMessage = @"Object Not Found.";
-static NSString *const BMLinkedListExceptionDictionaryFailedSearchedForNodeMessage = @"Node Not Found.";
+static NSString *const BMDoublyLinkedListOutOfBoundsExceptionFormatString = @"Index (%lu) out of bounds of list count.";
+static NSString *const BMDoublyLinkedListConsistencyExceptionMessage = @"List Consistency Issue. Head, Tail, and Count are not as expected";
+static NSString *const BMDoublyLinkedListExceptionDictionaryFailedSearchedForObjectMessage = @"Object Not Found.";
+static NSString *const BMDoublyLinkedListExceptionDictionaryFailedSearchedForNodeMessage = @"Node Not Found.";
 
 
 
@@ -146,12 +146,12 @@ static NSString *const BMLinkedListExceptionDictionaryFailedSearchedForNodeMessa
 - (void)pushFront:(id)anObject {
  
     if ([self shouldThrowConsistencyException]) {
-        @throw [NSException exceptionWithName:BMLinkedListConsistencyException
-                                       reason:BMLinkedListConsistencyExceptionMessage
+        @throw [NSException exceptionWithName:BMDoublyLinkedListConsistencyException
+                                       reason:BMDoublyLinkedListConsistencyExceptionMessage
                                      userInfo:@{
-                                                BMLinkedListExceptionDictionaryKeyCount : [NSNumber numberWithUnsignedLongLong:self.count],
-                                                BMLinkedListExceptionDictionaryKeyHeadObject : _head,
-                                                BMLinkedListExceptionDictionaryKeyTailObject : _tail
+                                                BMDoublyLinkedListExceptionDictionaryKeyCount : [NSNumber numberWithUnsignedLongLong:self.count],
+                                                BMDoublyLinkedListExceptionDictionaryKeyHeadObject : _head,
+                                                BMDoublyLinkedListExceptionDictionaryKeyTailObject : _tail
                                                 }];
     }
     
@@ -189,12 +189,12 @@ static NSString *const BMLinkedListExceptionDictionaryFailedSearchedForNodeMessa
 - (void)pushBack:(id)anObject {
     
     if ([self shouldThrowConsistencyException]) {
-        @throw [NSException exceptionWithName:BMLinkedListConsistencyException
-                                       reason:BMLinkedListConsistencyExceptionMessage
+        @throw [NSException exceptionWithName:BMDoublyLinkedListConsistencyException
+                                       reason:BMDoublyLinkedListConsistencyExceptionMessage
                                      userInfo:@{
-                                                BMLinkedListExceptionDictionaryKeyCount : [NSNumber numberWithUnsignedLongLong:self.count],
-                                                BMLinkedListExceptionDictionaryKeyHeadObject : _head,
-                                                BMLinkedListExceptionDictionaryKeyTailObject : _tail
+                                                BMDoublyLinkedListExceptionDictionaryKeyCount : [NSNumber numberWithUnsignedLongLong:self.count],
+                                                BMDoublyLinkedListExceptionDictionaryKeyHeadObject : _head,
+                                                BMDoublyLinkedListExceptionDictionaryKeyTailObject : _tail
                                                 }];
     }
     
@@ -346,10 +346,10 @@ static NSString *const BMLinkedListExceptionDictionaryFailedSearchedForNodeMessa
     BMDoublyLinkedListNode *nodeToDelete = [self nodeForObject:anObject];
     
     if (nodeToDelete == nil) {
-        @throw [NSException exceptionWithName:BMLinkedListObjectNotFoundException
-                                       reason:BMLinkedListExceptionDictionaryFailedSearchedForObjectMessage
+        @throw [NSException exceptionWithName:BMDoublyLinkedListObjectNotFoundException
+                                       reason:BMDoublyLinkedListExceptionDictionaryFailedSearchedForObjectMessage
                                      userInfo:@{
-                                                BMLinkedListExceptionDictionaryFailedSearchedForObject : anObject
+                                                BMDoublyLinkedListExceptionDictionaryFailedSearchedForObject : anObject
                                                 }];
     }
     
@@ -366,10 +366,10 @@ static NSString *const BMLinkedListExceptionDictionaryFailedSearchedForNodeMessa
     }
     
     if (nodeToRemove.next.previous != nodeToRemove || nodeToRemove.previous.next != nodeToRemove) {
-        @throw [NSException exceptionWithName:BMLinkedListObjectNotFoundException
-                                       reason:BMLinkedListExceptionDictionaryFailedSearchedForObjectMessage
+        @throw [NSException exceptionWithName:BMDoublyLinkedListObjectNotFoundException
+                                       reason:BMDoublyLinkedListExceptionDictionaryFailedSearchedForObjectMessage
                                      userInfo:@{
-                                                BMLinkedListExceptionDictionaryFailedSearchedForObject : nodeToRemove
+                                                BMDoublyLinkedListExceptionDictionaryFailedSearchedForObject : nodeToRemove
                                                 }];
     }
     
@@ -424,10 +424,10 @@ static NSString *const BMLinkedListExceptionDictionaryFailedSearchedForNodeMessa
 - (BMDoublyLinkedListNode *)nodeAtIndex:(NSUInteger)index {
     
     if (index >= _count) {
-        @throw [NSException exceptionWithName:BMLinkedListOutOfBoundsException
-                                       reason:[NSString stringWithFormat:BMLinkedListOutOfBoundsExceptionFormatString, index]
+        @throw [NSException exceptionWithName:BMDoublyLinkedListOutOfBoundsException
+                                       reason:[NSString stringWithFormat:BMDoublyLinkedListOutOfBoundsExceptionFormatString, index]
                                      userInfo:@{
-                                                BMLinkedListExceptionDictionaryKeyCount : [NSNumber numberWithUnsignedLongLong:self.count]
+                                                BMDoublyLinkedListExceptionDictionaryKeyCount : [NSNumber numberWithUnsignedLongLong:self.count]
                                                 }];
         
     } else if (index == speedIndex && speedNode != nil) {
@@ -557,10 +557,10 @@ static NSString *const BMLinkedListExceptionDictionaryFailedSearchedForNodeMessa
     } while (currentNode != _head && currentIndex < _count);
 
 
-    @throw [NSException exceptionWithName:BMLinkedListObjectNotFoundException
-                                   reason:BMLinkedListExceptionDictionaryFailedSearchedForObjectMessage
+    @throw [NSException exceptionWithName:BMDoublyLinkedListObjectNotFoundException
+                                   reason:BMDoublyLinkedListExceptionDictionaryFailedSearchedForObjectMessage
                                  userInfo:@{
-                                         BMLinkedListExceptionDictionaryFailedSearchedForObject : anObject
+                                         BMDoublyLinkedListExceptionDictionaryFailedSearchedForObject : anObject
                                  }];
 }
 
@@ -581,10 +581,10 @@ static NSString *const BMLinkedListExceptionDictionaryFailedSearchedForNodeMessa
     } while (currentNode != _head && currentIndex < _count);
 
 
-    @throw [NSException exceptionWithName:BMLinkedListNodeNotFoundException
-                                   reason:BMLinkedListExceptionDictionaryFailedSearchedForNodeMessage
+    @throw [NSException exceptionWithName:BMDoublyLinkedListNodeNotFoundException
+                                   reason:BMDoublyLinkedListExceptionDictionaryFailedSearchedForNodeMessage
                                  userInfo:@{
-                                         BMLinkedListExceptionDictionaryFailedSearchedForNode : aNode
+                                         BMDoublyLinkedListExceptionDictionaryFailedSearchedForNode : aNode
                                  }];
 }
 
