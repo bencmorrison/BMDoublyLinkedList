@@ -8,8 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		B54C9DFE1949442F005536DB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B54C9DFD1949442F005536DB /* Foundation.framework */; };
-		B54C9E031949442F005536DB /* BMLinkedList.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = B54C9E021949442F005536DB /* BMLinkedList.h */; };
-		B54C9E051949442F005536DB /* BMLinkedList.m in Sources */ = {isa = PBXBuildFile; fileRef = B54C9E041949442F005536DB /* BMLinkedList.m */; };
+		B54C9E031949442F005536DB /* BMDoublyLinkedList.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = B54C9E021949442F005536DB /* BMDoublyLinkedList.h */; };
+		B54C9E051949442F005536DB /* BMDoublyLinkedList.m in Sources */ = {isa = PBXBuildFile; fileRef = B54C9E041949442F005536DB /* BMDoublyLinkedList.m */; };
 		B54C9E0C1949442F005536DB /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B54C9E0B1949442F005536DB /* XCTest.framework */; };
 		B54C9E0D1949442F005536DB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B54C9DFD1949442F005536DB /* Foundation.framework */; };
 		B54C9E0F1949442F005536DB /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B54C9E0E1949442F005536DB /* UIKit.framework */; };
@@ -35,7 +35,7 @@
 			dstPath = "include/$(PRODUCT_NAME)";
 			dstSubfolderSpec = 16;
 			files = (
-				B54C9E031949442F005536DB /* BMLinkedList.h in CopyFiles */,
+				B54C9E031949442F005536DB /* BMDoublyLinkedList.h in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -45,8 +45,8 @@
 		B54C9DFA1949442F005536DB /* libBMLinkedList.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libBMLinkedList.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		B54C9DFD1949442F005536DB /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		B54C9E011949442F005536DB /* BMLinkedList-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "BMLinkedList-Prefix.pch"; sourceTree = "<group>"; };
-		B54C9E021949442F005536DB /* BMLinkedList.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BMLinkedList.h; sourceTree = "<group>"; };
-		B54C9E041949442F005536DB /* BMLinkedList.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BMLinkedList.m; sourceTree = "<group>"; };
+		B54C9E021949442F005536DB /* BMDoublyLinkedList.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BMDoublyLinkedList.h; sourceTree = "<group>"; };
+		B54C9E041949442F005536DB /* BMDoublyLinkedList.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BMDoublyLinkedList.m; sourceTree = "<group>"; };
 		B54C9E0A1949442F005536DB /* BMLinkedListTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BMLinkedListTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B54C9E0B1949442F005536DB /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		B54C9E0E1949442F005536DB /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
@@ -110,8 +110,8 @@
 		B54C9DFF1949442F005536DB /* BMLinkedList */ = {
 			isa = PBXGroup;
 			children = (
-				B54C9E021949442F005536DB /* BMLinkedList.h */,
-				B54C9E041949442F005536DB /* BMLinkedList.m */,
+				B54C9E021949442F005536DB /* BMDoublyLinkedList.h */,
+				B54C9E041949442F005536DB /* BMDoublyLinkedList.m */,
 				B54C9E001949442F005536DB /* Supporting Files */,
 			);
 			path = BMLinkedList;
@@ -224,7 +224,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B54C9E051949442F005536DB /* BMLinkedList.m in Sources */,
+				B54C9E051949442F005536DB /* BMDoublyLinkedList.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
