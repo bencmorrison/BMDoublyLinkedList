@@ -626,11 +626,8 @@ static NSString *const BMDoublyLinkedListExceptionDictionaryFailedSearchedForNod
         currentNode = currentNode.previous;
     } while(actualCountOfItemsBackwards <= _count && currentNode != self.tail);
 
-    if (actualCountOfItemsBackwards != _count) {
-        return NO;
-    }
+    return actualCountOfItemsBackwards == _count;
 
-    return YES;
 }
 
 
