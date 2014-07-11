@@ -265,6 +265,35 @@
 
 
 
+- (void)testAddObject {
+    NSNumber *firstNumber = @1;
+    NSNumber *secondNumber = @2;
+    NSNumber *thirdNumber = @3;
+
+    BMDoublyLinkedList *sut = [BMDoublyLinkedList new];
+
+    [sut addObject:firstNumber];
+
+    if (sut.tail.object != firstNumber) {
+        XCTFail(@"addObject Item %@ failed in \"%s\"",firstNumber ,__PRETTY_FUNCTION__);
+    }
+
+    [sut addObject:secondNumber];
+
+    if (sut.tail.object != secondNumber) {
+        XCTFail(@"addObject Item %@ failed in \"%s\"",secondNumber ,__PRETTY_FUNCTION__);
+    }
+
+    [sut addObject:thirdNumber];
+
+    if (sut.tail.object != thirdNumber) {
+        XCTFail(@"addObject Item %@ failed in \"%s\"",thirdNumber ,__PRETTY_FUNCTION__);
+    }
+
+}
+
+
+
 - (void)testInsertObjectAtIndex {
     NSMutableArray *array = @[@1, @2, @3, @4, @5].mutableCopy;
     

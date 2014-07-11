@@ -229,6 +229,12 @@ static NSString *const BMDoublyLinkedListExceptionDictionaryFailedSearchedForNod
 
 
 
+- (void)addObject:(id)anObject {
+    [self pushBack:anObject];
+}
+
+
+
 - (void)insertObject:(id)anObject atIndex:(NSUInteger)index {
     if (index == _count) {
         [self pushBack:anObject];

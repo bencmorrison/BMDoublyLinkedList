@@ -49,6 +49,7 @@ extern NSString *const BMDoublyLinkedListExceptionDictionaryFailedSearchedForNod
 // Inserters
 - (void)pushFront:(id)anObject;
 - (void)pushBack:(id)anObject;
+- (void)addObject:(id)anObject;
 - (void)insertObject:(id)anObject atIndex:(NSUInteger)index;
 - (void)insertObject:(id)anObject before:(BMDoublyLinkedListNode *)beforeNode;
 - (void)insertObject:(id)anObject after:(BMDoublyLinkedListNode *)afterNode;
