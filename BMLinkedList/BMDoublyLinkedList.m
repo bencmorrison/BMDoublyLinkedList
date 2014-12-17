@@ -6,7 +6,6 @@
 //  Copyright (c) 2014 Benjamin Morrison. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
 #import "BMDoublyLinkedList.h"
 
 NSString *const BMDoublyLinkedListOutOfBoundsException = @"BMLinkedListOutOfBoundsException";
@@ -29,8 +28,8 @@ static NSString *const BMDoublyLinkedListExceptionDictionaryFailedSearchedForNod
 
 @interface BMDoublyLinkedListNode ()
 
-@property (nonatomic, strong) BMDoublyLinkedListNode *nextNode;
-@property (nonatomic, strong) BMDoublyLinkedListNode *previousNode;
+@property (nonatomic, strong, readwrite) BMDoublyLinkedListNode *next;
+@property (nonatomic, strong, readwrite) BMDoublyLinkedListNode *previous;
 
 @end
 
@@ -41,8 +40,8 @@ static NSString *const BMDoublyLinkedListExceptionDictionaryFailedSearchedForNod
     self = [super init];
     
     if (self != nil) {
-        self.nextNode = nil;
-        self.previousNode = nil;
+        self.next = nil;
+        self.previous = nil;
         
         self.object = nil;
     }
@@ -66,21 +65,18 @@ static NSString *const BMDoublyLinkedListExceptionDictionaryFailedSearchedForNod
     return [[BMDoublyLinkedListNode alloc] initWithObject:anObject];
 }
 
-
-- (BMDoublyLinkedListNode *)getNext {
-    return self.nextNode;
-}
-
-
-- (BMDoublyLinkedListNode *)getPrevious {
-    return self.previousNode;
-}
-
 @end
 
 
 
 
+@interface BMDoublyLinkedList ()
+
+@property (atomic, assign, readwrite) NSUInteger count;
+@property (atomic, strong, readwrite) BMDoublyLinkedListNode *head;
+@property (atomic, strong, readwrite) BMDoublyLinkedListNode *tail;
+
+@end
 
 
 @interface BMDoublyLinkedList ()
@@ -149,37 +145,37 @@ static NSString *const BMDoublyLinkedListExceptionDictionaryFailedSearchedForNod
         @throw [NSException exceptionWithName:BMDoublyLinkedListConsistencyException
                                        reason:BMDoublyLinkedListConsistencyExceptionMessage
                                      userInfo:@{
-                                                BMDoublyLinkedListExceptionDictionaryKeyCount : [NSNumber numberWithUnsignedLongLong:self.count],
-                                                BMDoublyLinkedListExceptionDictionaryKeyHeadObject : _head,
-                                                BMDoublyLinkedListExceptionDictionaryKeyTailObject : _tail
+                                                BMDoublyLinkedListExceptionDictionaryKeyCount : @(self.count),
+                                                BMDoublyLinkedListExceptionDictionaryKeyHeadObject : self.head,
+                                                BMDoublyLinkedListExceptionDictionaryKeyTailObject : self.tail
                                                 }];
     }
     
     BMDoublyLinkedListNode *nodeToInsert = [BMDoublyLinkedListNode nodeFromObject:anObject];
     
-    if (_head == nil) {
-        _head = nodeToInsert;
-        _tail = nodeToInsert;
+    if (self.head == nil) {
+        self.head = nodeToInsert;
+        self.tail = nodeToInsert;
         
-        nodeToInsert.nextNode = nodeToInsert;
-        nodeToInsert.previousNode = nodeToInsert;
+        nodeToInsert.next = nodeToInsert;
+        nodeToInsert.previous = nodeToInsert;
         
-        ++_count;
+        ++self.count;
         speedIndex = 0;
         speedNode = nil;
         
         return;
     }
     
-    nodeToInsert.previousNode = _tail;
-    nodeToInsert.nextNode = _head;
+    nodeToInsert.previous = self.tail;
+    nodeToInsert.next = self.head;
     
-    _tail.nextNode = nodeToInsert;
-    _head.previousNode = nodeToInsert;
+    self.tail.next = nodeToInsert;
+    self.head.previous = nodeToInsert;
     
-    _head = nodeToInsert;
+    self.head = nodeToInsert;
     
-    ++_count;
+    ++self.count;
     speedIndex = 0;
     speedNode = nil;
 }
@@ -192,37 +188,37 @@ static NSString *const BMDoublyLinkedListExceptionDictionaryFailedSearchedForNod
         @throw [NSException exceptionWithName:BMDoublyLinkedListConsistencyException
                                        reason:BMDoublyLinkedListConsistencyExceptionMessage
                                      userInfo:@{
-                                                BMDoublyLinkedListExceptionDictionaryKeyCount : [NSNumber numberWithUnsignedLongLong:self.count],
-                                                BMDoublyLinkedListExceptionDictionaryKeyHeadObject : _head,
-                                                BMDoublyLinkedListExceptionDictionaryKeyTailObject : _tail
+                                                BMDoublyLinkedListExceptionDictionaryKeyCount : @(self.count),
+                                                BMDoublyLinkedListExceptionDictionaryKeyHeadObject : self.head,
+                                                BMDoublyLinkedListExceptionDictionaryKeyTailObject : self.tail
                                                 }];
     }
     
     BMDoublyLinkedListNode *nodeToInsert = [BMDoublyLinkedListNode nodeFromObject:anObject];
     
-    if (_tail == nil) {
-        _head = nodeToInsert;
-        _tail = nodeToInsert;
+    if (self.tail == nil) {
+        self.head = nodeToInsert;
+        self.tail = nodeToInsert;
         
-        nodeToInsert.nextNode = nodeToInsert;
-        nodeToInsert.previousNode = nodeToInsert;
+        nodeToInsert.next = nodeToInsert;
+        nodeToInsert.previous = nodeToInsert;
         
-        ++_count;
+        ++self.count;
         speedIndex = 0;
         speedNode = nil;
         
         return;
     }
     
-    nodeToInsert.previousNode = _tail;
-    nodeToInsert.nextNode = _head;
+    nodeToInsert.previous = self.tail;
+    nodeToInsert.next = self.head;
     
-    _tail.nextNode = nodeToInsert;
-    _head.previousNode = nodeToInsert;
+    self.tail.next = nodeToInsert;
+    self.head.previous = nodeToInsert;
     
-    _tail = nodeToInsert;
+    self.tail = nodeToInsert;
     
-    ++_count;
+    ++self.count;
     speedIndex = 0;
     speedNode = nil;
 }
@@ -236,8 +232,9 @@ static NSString *const BMDoublyLinkedListExceptionDictionaryFailedSearchedForNod
 
 
 - (void)insertObject:(id)anObject atIndex:(NSUInteger)index {
-    if (index == _count) {
+    if (index == self.count) {
         [self pushBack:anObject];
+
     } else if (index == 0) {
         [self pushFront:anObject];
     }
@@ -250,13 +247,13 @@ static NSString *const BMDoublyLinkedListExceptionDictionaryFailedSearchedForNod
 - (void)insertObject:(id)anObject before:(BMDoublyLinkedListNode *)beforeNode {
     BMDoublyLinkedListNode *nodeToInsert = [BMDoublyLinkedListNode nodeFromObject:anObject];
     
-    nodeToInsert.nextNode = beforeNode;
-    nodeToInsert.previousNode = beforeNode.previous;
+    nodeToInsert.next = beforeNode;
+    nodeToInsert.previous = beforeNode.previous;
     
-    beforeNode.previous.nextNode = nodeToInsert;
-    beforeNode.previousNode = nodeToInsert;
+    beforeNode.previous.next = nodeToInsert;
+    beforeNode.previous = nodeToInsert;
     
-    ++_count;
+    ++self.count;
     speedIndex = 0;
     speedNode = nil;
     
@@ -267,13 +264,13 @@ static NSString *const BMDoublyLinkedListExceptionDictionaryFailedSearchedForNod
 - (void)insertObject:(id)anObject after:(BMDoublyLinkedListNode *)afterNode {
     BMDoublyLinkedListNode *nodeToInsert = [BMDoublyLinkedListNode nodeFromObject:anObject];
     
-    nodeToInsert.previousNode = afterNode;
-    nodeToInsert.nextNode = afterNode.nextNode;
+    nodeToInsert.previous = afterNode;
+    nodeToInsert.next = afterNode.next;
     
-    afterNode.next.previousNode = nodeToInsert;
-    afterNode.nextNode = nodeToInsert;
+    afterNode.next.previous = nodeToInsert;
+    afterNode.next = nodeToInsert;
     
-    ++_count;
+    ++self.count;
     speedIndex = 0;
     speedNode = nil;
 }
@@ -282,33 +279,38 @@ static NSString *const BMDoublyLinkedListExceptionDictionaryFailedSearchedForNod
 
 #pragma mark - Removers
 - (id)popFront {
-    if (_count == 1) {
-        _count = 0;
-        _tail = nil;
+    if (self.count == 1) {
+        self.count = 0;
+        self.tail = nil;
         
-        id objectToReturn = _head.object;
+        id objectToReturn = self.head.object;
         
-        _head.previousNode = nil;
-        _head.nextNode = nil;
-        _head.object = nil;
+        self.head.previous = nil;
+        self.head.next = nil;
+        self.head.object = nil;
+
+        if (speedNode == self.head) {
+            speedNode = nil;
+            speedIndex = 0;
+        }
         
-        _head = nil;
+        self.head = nil;
         
         return objectToReturn;
     }
     
-    id objectToReturn = _head.object;
+    id objectToReturn = self.head.object;
     
-    _tail.nextNode = _head.next;
-    _head.next.previousNode = _tail;
+    self.tail.next = self.head.next;
+    self.head.next.previous = self.tail;
     
-    _head.nextNode = nil;
-    _head.previousNode = nil;
-    _head.object = nil;
+    self.head.next = nil;
+    self.head.previous = nil;
+    self.head.object = nil;
     
-    _head = _tail.next;
+    self.head = self.tail.next;
     
-    --_count;
+    --self.count;
     speedIndex = 0;
     speedNode = nil;
     
@@ -318,22 +320,22 @@ static NSString *const BMDoublyLinkedListExceptionDictionaryFailedSearchedForNod
 
 
 -(id)popBack {
-    if (_count == 1) {
+    if (self.count == 1) {
         return [self popFront];
     }
     
-    id objectToReturn = _tail.object;
+    id objectToReturn = self.tail.object;
     
-    _head.previousNode = _tail.previous;
-    _tail.previous.nextNode = _head;
+    self.head.previous = self.tail.previous;
+    self.tail.previous.next = self.head;
     
-    _tail.nextNode = nil;
-    _tail.previousNode = nil;
-    _tail.object = nil;
+    self.tail.next = nil;
+    self.tail.previous = nil;
+    self.tail.object = nil;
     
-    _tail = _head.previous;
+    self.tail = self.head.previous;
 
-    --_count;
+    --self.count;
     speedIndex = 0;
     speedNode = nil;
     
@@ -365,9 +367,9 @@ static NSString *const BMDoublyLinkedListExceptionDictionaryFailedSearchedForNod
 
 
 - (id)removeNode:(BMDoublyLinkedListNode *)nodeToRemove {
-    if (nodeToRemove == _head) {
+    if (nodeToRemove == self.head) {
         return [self popFront];
-    } else if (nodeToRemove == _tail) {
+    } else if (nodeToRemove == self.tail) {
         return [self popBack];
     }
     
@@ -381,14 +383,14 @@ static NSString *const BMDoublyLinkedListExceptionDictionaryFailedSearchedForNod
     
     id objectToReturn = nodeToRemove.object;
     
-    nodeToRemove.previous.nextNode = nodeToRemove.next;
-    nodeToRemove.next.previousNode = nodeToRemove.previous;
+    nodeToRemove.previous.next = nodeToRemove.next;
+    nodeToRemove.next.previous = nodeToRemove.previous;
     
-    nodeToRemove.nextNode = nil;
-    nodeToRemove.previousNode = nil;
+    nodeToRemove.next = nil;
+    nodeToRemove.previous = nil;
     nodeToRemove.object = nil;
 
-    --_count;
+    --self.count;
     speedIndex = 0;
     speedNode = nil;
     
@@ -398,21 +400,21 @@ static NSString *const BMDoublyLinkedListExceptionDictionaryFailedSearchedForNod
 
 
 - (void)emptyList {
-    BMDoublyLinkedListNode *currentNode = _head;
-    BMDoublyLinkedListNode *nextNode = _head.next;
+    BMDoublyLinkedListNode *currentNode = self.head;
+    BMDoublyLinkedListNode *next = self.head.next;
     
     do {
-        currentNode.previousNode = nil;
-        currentNode.nextNode = nil;
+        currentNode.previous = nil;
+        currentNode.next = nil;
         currentNode.object = nil;
         
-        currentNode = nextNode;
-        nextNode = nextNode.nextNode;
+        currentNode = next;
+        next = next.next;
     } while (currentNode != nil);
     
-    _head = nil;
-    _tail = nil;
-    _count = 0;
+    self.head = nil;
+    self.tail = nil;
+    self.count = 0;
     speedNode = nil;
     speedIndex = 0;
 }
@@ -429,11 +431,11 @@ static NSString *const BMDoublyLinkedListExceptionDictionaryFailedSearchedForNod
 
 - (BMDoublyLinkedListNode *)nodeAtIndex:(NSUInteger)index {
     
-    if (index >= _count) {
+    if (index >= self.count) {
         @throw [NSException exceptionWithName:BMDoublyLinkedListOutOfBoundsException
                                        reason:[NSString stringWithFormat:BMDoublyLinkedListOutOfBoundsExceptionFormatString, index]
                                      userInfo:@{
-                                                BMDoublyLinkedListExceptionDictionaryKeyCount : [NSNumber numberWithUnsignedLongLong:self.count]
+                                                BMDoublyLinkedListExceptionDictionaryKeyCount : @(self.count)
                                                 }];
         
     } else if (index == speedIndex && speedNode != nil) {
@@ -441,13 +443,13 @@ static NSString *const BMDoublyLinkedListExceptionDictionaryFailedSearchedForNod
         
     } else if (index == (speedIndex - 1)  && speedNode != nil) {
         --speedIndex;
-        speedNode = speedNode.previousNode;
+        speedNode = speedNode.previous;
         
         return speedNode;
     
     } else if (index == (speedIndex + 1) && speedNode != nil) {
         ++speedIndex;
-        speedNode = speedNode.nextNode;
+        speedNode = speedNode.next;
         
         return speedNode;
     }
@@ -463,14 +465,14 @@ static NSString *const BMDoublyLinkedListExceptionDictionaryFailedSearchedForNod
     NSUInteger distanceFromSpeedNodeForwards = index - speedIndex;
     
     // Is it better to Start at Tail and go backwards?
-    NSUInteger distanceFromTail = _count - index;
+    NSUInteger distanceFromTail = self.count - index;
     
     
     if (distanceFromHead <= distanceFromSpeedNodeBackwards ||
         distanceFromHead <= distanceFromSpeedNodeForwards ||
         distanceFromHead <= distanceFromTail) {
         
-        speedNode = [self nodeByTraversingForward:distanceFromHead timesFromNode:_head];
+        speedNode = [self nodeByTraversingForward:distanceFromHead timesFromNode:self.head];
         
     
     } else if (distanceFromSpeedNodeBackwards <= distanceFromSpeedNodeForwards ||
@@ -485,7 +487,7 @@ static NSString *const BMDoublyLinkedListExceptionDictionaryFailedSearchedForNod
         
         
     } else {
-        speedNode = [self nodeByTraversingBackwards:distanceFromTail timesFromNode:_tail];
+        speedNode = [self nodeByTraversingBackwards:distanceFromTail timesFromNode:self.tail];
     }
     
     speedIndex = index;
@@ -495,7 +497,7 @@ static NSString *const BMDoublyLinkedListExceptionDictionaryFailedSearchedForNod
 
 
 - (BMDoublyLinkedListNode *)nodeForObject:(id)anObject {
-    BMDoublyLinkedListNode *currentNode = _head;
+    BMDoublyLinkedListNode *currentNode = self.head;
     
     do {
         if (currentNode.object == anObject) {
@@ -504,7 +506,7 @@ static NSString *const BMDoublyLinkedListExceptionDictionaryFailedSearchedForNod
 
         currentNode = currentNode.next;
         
-    } while (currentNode != _head);
+    } while (currentNode != self.head);
     
     return nil;
 }
@@ -514,14 +516,14 @@ static NSString *const BMDoublyLinkedListExceptionDictionaryFailedSearchedForNod
 - (NSArray *)arrayFromList {
     NSMutableArray *array = @[].mutableCopy;
     
-    BMDoublyLinkedListNode *currentNode = _head;
+    BMDoublyLinkedListNode *currentNode = self.head;
     
     do {
         [array addObject:currentNode.object];
         
         currentNode = currentNode.next;
         
-    } while (currentNode != _head);
+    } while (currentNode != self.head);
     
     return array;
 }
@@ -549,7 +551,7 @@ static NSString *const BMDoublyLinkedListExceptionDictionaryFailedSearchedForNod
 
 
 - (NSUInteger)indexForObject:(id)anObject {
-    BMDoublyLinkedListNode *currentNode = _head;
+    BMDoublyLinkedListNode *currentNode = self.head;
     NSUInteger currentIndex = 0;
 
     do {
@@ -560,7 +562,7 @@ static NSString *const BMDoublyLinkedListExceptionDictionaryFailedSearchedForNod
         currentNode = currentNode.next;
         ++currentIndex;
 
-    } while (currentNode != _head && currentIndex < _count);
+    } while (currentNode != self.head && currentIndex < self.count);
 
 
     @throw [NSException exceptionWithName:BMDoublyLinkedListObjectNotFoundException
@@ -573,7 +575,7 @@ static NSString *const BMDoublyLinkedListExceptionDictionaryFailedSearchedForNod
 
 
 - (NSUInteger)indexForNode:(BMDoublyLinkedListNode *)aNode {
-    BMDoublyLinkedListNode *currentNode = _head;
+    BMDoublyLinkedListNode *currentNode = self.head;
     NSUInteger currentIndex = 0;
 
     do {
@@ -584,7 +586,7 @@ static NSString *const BMDoublyLinkedListExceptionDictionaryFailedSearchedForNod
         currentNode = currentNode.next;
         ++currentIndex;
 
-    } while (currentNode != _head && currentIndex < _count);
+    } while (currentNode != self.head && currentIndex < self.count);
 
 
     @throw [NSException exceptionWithName:BMDoublyLinkedListNodeNotFoundException
@@ -604,7 +606,7 @@ static NSString *const BMDoublyLinkedListExceptionDictionaryFailedSearchedForNod
         return NO;
     } else if (self.tail == nil) {
         return NO;
-    } else if (self.head != nil && self.tail != nil && _count == 0) {
+    } else if (self.head != nil && self.tail != nil && self.count == 0) {
         return NO;
     }
 
@@ -613,9 +615,9 @@ static NSString *const BMDoublyLinkedListExceptionDictionaryFailedSearchedForNod
     do {
         ++actualCountOfItemsForward;
         currentNode = currentNode.next;
-    } while (actualCountOfItemsForward <= _count && currentNode != self.head);
+    } while (actualCountOfItemsForward <= self.count && currentNode != self.head);
 
-    if (actualCountOfItemsForward != _count) {
+    if (actualCountOfItemsForward != self.count) {
         return NO;
     }
 
@@ -624,9 +626,9 @@ static NSString *const BMDoublyLinkedListExceptionDictionaryFailedSearchedForNod
     do {
         ++actualCountOfItemsBackwards;
         currentNode = currentNode.previous;
-    } while(actualCountOfItemsBackwards <= _count && currentNode != self.tail);
+    } while(actualCountOfItemsBackwards <= self.count && currentNode != self.tail);
 
-    return actualCountOfItemsBackwards == _count;
+    return actualCountOfItemsBackwards == self.count;
 
 }
 
@@ -639,7 +641,7 @@ static NSString *const BMDoublyLinkedListExceptionDictionaryFailedSearchedForNod
     BMDoublyLinkedListNode *currentNode = aNode;
     
     for (NSUInteger i = 0; i < timesBackward; ++i) {
-        currentNode = currentNode.previousNode;
+        currentNode = currentNode.previous;
     }
     
     return currentNode;
@@ -652,7 +654,7 @@ static NSString *const BMDoublyLinkedListExceptionDictionaryFailedSearchedForNod
     BMDoublyLinkedListNode *currentNode = aNode;
     
     for (NSUInteger i = 0; i < timesForwards; ++i) {
-        currentNode = currentNode.nextNode;
+        currentNode = currentNode.next;
     }
     
     return currentNode;
@@ -663,8 +665,8 @@ static NSString *const BMDoublyLinkedListExceptionDictionaryFailedSearchedForNod
 - (BOOL)shouldThrowConsistencyException {
     BOOL throwError = NO;
     
-    throwError = throwError || (_count == 0 && (_head != nil || _tail != nil));
-    throwError = throwError || (_count != 0 && (_head == nil || _tail == nil));
+    throwError = throwError || (self.count == 0 && (self.head != nil || self.tail != nil));
+    throwError = throwError || (self.count != 0 && (self.head == nil || self.tail == nil));
     
     return throwError;
 }
@@ -676,7 +678,7 @@ static NSString *const BMDoublyLinkedListExceptionDictionaryFailedSearchedForNod
     
     if (state->state == 0) {
         state->extra[0] = (unsigned long) self;
-        state->extra[1] = (unsigned long) _head;
+        state->extra[1] = (unsigned long) self.head;
         state->extra[2] = 0;
         state->mutationsPtr = &state->extra[0];
         
@@ -686,7 +688,7 @@ static NSString *const BMDoublyLinkedListExceptionDictionaryFailedSearchedForNod
     
     NSUInteger totalIterated =state->extra[2];
     
-    if (totalIterated >= _count) {
+    if (totalIterated >= self.count) {
         return 0;
     }
     
@@ -699,7 +701,7 @@ static NSString *const BMDoublyLinkedListExceptionDictionaryFailedSearchedForNod
     state->itemsPtr = buffer;
     
     
-    while ((totalIterated < _count) && (totalAddedToBuffer < len)) {
+    while ((totalIterated < self.count) && (totalAddedToBuffer < len)) {
         *buffer++ = currentNode;
         
         currentNode = currentNode.next;

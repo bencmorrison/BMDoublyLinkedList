@@ -23,8 +23,8 @@ extern NSString *const BMDoublyLinkedListExceptionDictionaryFailedSearchedForNod
 @interface BMDoublyLinkedListNode : NSObject
 
 @property (nonatomic, strong) id object;
-@property (nonatomic, readonly, getter = getNext) BMDoublyLinkedListNode *next;
-@property (nonatomic, readonly, getter = getPrevious) BMDoublyLinkedListNode *previous;
+@property (nonatomic, strong, readonly) BMDoublyLinkedListNode *next;
+@property (nonatomic, strong, readonly) BMDoublyLinkedListNode *previous;
 
 - (instancetype)init;
 - (instancetype)initWithObject:(id) anObject;
@@ -41,7 +41,7 @@ extern NSString *const BMDoublyLinkedListExceptionDictionaryFailedSearchedForNod
 @property (atomic, strong, readonly) BMDoublyLinkedListNode *tail;
 
 // Initializers
-- (instancetype)init;
+- (instancetype)init NS_DESIGNATED_INITIALIZER;
 - (instancetype)initFromArray:(NSArray *)array;
 + (instancetype)linkedList;
 + (instancetype)listFromArray:(NSArray *)array;
