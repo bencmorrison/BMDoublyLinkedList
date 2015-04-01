@@ -76,15 +76,15 @@ static NSString *const BMDoublyLinkedListExceptionDictionaryFailedSearchedForNod
 @property (atomic, strong, readwrite) BMDoublyLinkedListNode *head;
 @property (atomic, strong, readwrite) BMDoublyLinkedListNode *tail;
 
-@end
-
-
-@interface BMDoublyLinkedList ()
-
 - (BMDoublyLinkedListNode *)nodeByTraversingBackwards:(NSUInteger)timesBackwards timesFromNode:(BMDoublyLinkedListNode *)aNode;
 - (BMDoublyLinkedListNode *)nodeByTraversingForward:(NSUInteger)timesForwards timesFromNode:(BMDoublyLinkedListNode *)aNode;
 
 - (BOOL)shouldThrowConsistencyException;
+- (void)swapNode:(BMDoublyLinkedListNode *)firstNode withNode:(BMDoublyLinkedListNode *)secondNode;
+
+- (BMDoublyLinkedList *)mergeSortList:(BMDoublyLinkedList *)list withSorthComparator:(BMDoublyLinkedListSortComparatorBlock)sortBlock;
+- (BMDoublyLinkedList *)mergeLeft:(BMDoublyLinkedList *)leftList andRightList:(BMDoublyLinkedList *)rightList withSortComparator:(BMDoublyLinkedListSortComparatorBlock)sortBlock;
+- (NSString *)listAsString;
 
 @end
 
@@ -136,6 +136,28 @@ static NSString *const BMDoublyLinkedListExceptionDictionaryFailedSearchedForNod
 + (instancetype)listFromArray:(NSArray *)array {
     return [[BMDoublyLinkedList alloc] initFromArray:array];
 }
+
+
+
+#pragma mark - Derived Data
+- (BMDoublyLinkedList *)subListFromRange:(NSRange)range {
+    NSUInteger location = range.location;
+
+    BMDoublyLinkedListNode *node = [self nodeAtIndex:location];
+
+    BMDoublyLinkedList *subList = [BMDoublyLinkedList new];
+
+    NSUInteger rangeInserts = 0;
+    while (rangeInserts < range.length) {
+        [subList addObject:node.object];
+        node = node.next;
+
+        ++rangeInserts;
+    }
+
+    return subList;
+}
+
 
 
 #pragma mark - Inserting
@@ -237,9 +259,10 @@ static NSString *const BMDoublyLinkedListExceptionDictionaryFailedSearchedForNod
 
     } else if (index == 0) {
         [self pushFront:anObject];
-    }
     
-    [self insertObject:anObject before:[self nodeAtIndex:index]];
+    } else {
+        [self insertObject:anObject before:[self nodeAtIndex:index]];
+    }
 }
 
 
@@ -273,6 +296,31 @@ static NSString *const BMDoublyLinkedListExceptionDictionaryFailedSearchedForNod
     ++self.count;
     speedIndex = 0;
     speedNode = nil;
+}
+
+
+
+- (void)setObject:(id)anObject atIndexedSubscript:(NSUInteger)index {
+    [self insertObject:anObject atIndex:index];
+}
+
+
+
+- (void)addObjectsFromList:(BMDoublyLinkedList *)list {
+    if (list == nil) {
+        return;
+        
+    } else if (list.count < 1) {
+        return;
+    }
+
+    BMDoublyLinkedListNode *node = list.head;
+
+    do {
+        [self addObject:node.object];
+        node = node.next;
+
+    } while (node != list.head);
 }
 
 
@@ -429,11 +477,17 @@ static NSString *const BMDoublyLinkedListExceptionDictionaryFailedSearchedForNod
 
 
 
+- (id)objectAtIndexedSubscript:(NSUInteger)index {
+    return [self objectAtIndex:index];
+}
+
+
+
 - (BMDoublyLinkedListNode *)nodeAtIndex:(NSUInteger)index {
     
     if (index >= self.count) {
         @throw [NSException exceptionWithName:BMDoublyLinkedListOutOfBoundsException
-                                       reason:[NSString stringWithFormat:BMDoublyLinkedListOutOfBoundsExceptionFormatString, index]
+                                       reason:[NSString stringWithFormat:BMDoublyLinkedListOutOfBoundsExceptionFormatString, (unsigned long)index]
                                      userInfo:@{
                                                 BMDoublyLinkedListExceptionDictionaryKeyCount : @(self.count)
                                                 }];
@@ -673,6 +727,41 @@ static NSString *const BMDoublyLinkedListExceptionDictionaryFailedSearchedForNod
 
 
 
+- (void)swapNode:(BMDoublyLinkedListNode *)firstNode withNode:(BMDoublyLinkedListNode *)secondNode {
+    firstNode.previous.next = secondNode;
+    secondNode.previous.next = firstNode;
+
+    BMDoublyLinkedListNode *tempNode = nil;
+    tempNode = secondNode.previous;
+
+    secondNode.previous = firstNode.previous;
+    firstNode.previous = tempNode;
+
+    firstNode.next.previous = secondNode;
+    secondNode.next.previous = firstNode;
+
+    tempNode = secondNode.next;
+
+    secondNode.next = firstNode.next;
+    firstNode.next = tempNode;
+
+    if (self.head == firstNode) {
+        self.head = secondNode;
+
+    } else if (self.head == secondNode) {
+        self.head = firstNode;
+    }
+
+    if (self.tail == firstNode) {
+        self.tail = secondNode;
+
+    } else if (self.tail == secondNode) {
+        self.tail = firstNode;
+    }
+}
+
+
+
 #pragma mark - Fast Enumeration
 - (NSUInteger)countByEnumeratingWithState:(NSFastEnumerationState *)state objects:(__unsafe_unretained id [])buffer count:(NSUInteger)len {
     
@@ -716,6 +805,111 @@ static NSString *const BMDoublyLinkedListExceptionDictionaryFailedSearchedForNod
     
     return totalAddedToBuffer;
     
+}
+
+
+
+#pragma mark - Sorting
+- (void)sortListUsingComparator:(BMDoublyLinkedListSortComparatorBlock)sortComparatorBlock {
+    BMDoublyLinkedList *sortedList = [self mergeSortList:self withSorthComparator:sortComparatorBlock];
+
+    [self emptyList];
+
+    self.head = sortedList.head;
+    self.tail = sortedList.tail;
+    self.count = sortedList.count;
+}
+
+
+
+#pragma mark - Sorting Support
+- (BMDoublyLinkedList *)mergeSortList:(BMDoublyLinkedList *)list withSorthComparator:(BMDoublyLinkedListSortComparatorBlock)sortBlock {
+    if (list.count < 2) {
+        return list;
+    }
+
+    NSUInteger middle = list.count / 2;
+
+    NSRange leftRange = NSMakeRange(0, middle);
+    NSRange rightRange = NSMakeRange(middle, (list.count - middle));
+
+    BMDoublyLinkedList *leftList = [list subListFromRange:leftRange];
+    BMDoublyLinkedList *rightList = [list subListFromRange:rightRange];
+
+    BMDoublyLinkedList *sortedList = [self mergeLeft:[self mergeSortList:leftList withSorthComparator:sortBlock]
+                                        andRightList:[self mergeSortList:rightList withSorthComparator:sortBlock]
+                                  withSortComparator:sortBlock];
+
+    return sortedList;
+}
+
+
+
+- (BMDoublyLinkedList *)mergeLeft:(BMDoublyLinkedList *)leftList andRightList:(BMDoublyLinkedList *)rightList withSortComparator:(BMDoublyLinkedListSortComparatorBlock)sortBlock {
+    BMDoublyLinkedList *resultList = [BMDoublyLinkedList new];
+    NSUInteger leftIndex = 0;
+    NSUInteger rightIndex = 0;
+
+    while (leftIndex < leftList.count && rightIndex < rightList.count) {
+        id object1 = [leftList objectAtIndex:leftIndex];
+        id object2 = [rightList objectAtIndex:rightIndex];
+
+        NSComparisonResult blockResult = sortBlock(object1, object2);
+
+        if (blockResult == NSOrderedAscending) {
+            [resultList pushBack:object1];
+            ++leftIndex;
+
+        } else if (blockResult == NSOrderedDescending) {
+            [resultList pushBack:object2];
+            ++rightIndex;
+
+        } else /* blockResult == NSOrderedSame */ {
+            [resultList pushBack:object2];
+            ++rightIndex;
+        }
+    }
+
+    NSRange leftRange = NSMakeRange(leftIndex, leftList.count - leftIndex);
+    NSRange rightRange = NSMakeRange(rightIndex, rightList.count - rightIndex);
+
+    BMDoublyLinkedList *subLeftList = nil;
+    BMDoublyLinkedList *subRightList = nil;
+    
+    if (leftRange.location < leftList.count) {
+        subLeftList = [leftList subListFromRange:leftRange];
+    }
+    
+    if (rightRange.location < rightList.count) {
+        subRightList = [rightList subListFromRange:rightRange];
+    }
+
+    [resultList addObjectsFromList:subLeftList];
+    [resultList addObjectsFromList:subRightList];
+
+    [leftList emptyList];
+    [rightList emptyList];
+    
+    [subLeftList emptyList];
+    [subRightList emptyList];
+    
+    return resultList;
+}
+
+
+
+#pragma mark - Stuffs
+- (NSString *)listAsString {
+    NSMutableString *string = @"".mutableCopy;
+    
+    for (BMDoublyLinkedListNode *n in self) {
+        [string appendFormat:@"%@", n.object];
+        if (n != self.tail) {
+            [string appendString:@" <-> "];
+        }
+    }
+    
+    return string;
 }
 
 

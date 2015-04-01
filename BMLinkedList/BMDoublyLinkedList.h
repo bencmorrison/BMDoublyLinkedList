@@ -19,6 +19,8 @@ extern NSString *const BMDoublyLinkedListExceptionDictionaryKeyHeadObject;
 extern NSString *const BMDoublyLinkedListExceptionDictionaryFailedSearchedForObject;
 extern NSString *const BMDoublyLinkedListExceptionDictionaryFailedSearchedForNode;
 
+typedef NSComparisonResult (^BMDoublyLinkedListSortComparatorBlock)(id firstObject, id secondObject);
+
 
 @interface BMDoublyLinkedListNode : NSObject
 
@@ -46,6 +48,9 @@ extern NSString *const BMDoublyLinkedListExceptionDictionaryFailedSearchedForNod
 + (instancetype)linkedList;
 + (instancetype)listFromArray:(NSArray *)array;
 
+// Derivied Lists
+- (BMDoublyLinkedList *)subListFromRange:(NSRange)range;
+
 // Inserters
 - (void)pushFront:(id)anObject;
 - (void)pushBack:(id)anObject;
@@ -53,6 +58,8 @@ extern NSString *const BMDoublyLinkedListExceptionDictionaryFailedSearchedForNod
 - (void)insertObject:(id)anObject atIndex:(NSUInteger)index;
 - (void)insertObject:(id)anObject before:(BMDoublyLinkedListNode *)beforeNode;
 - (void)insertObject:(id)anObject after:(BMDoublyLinkedListNode *)afterNode;
+- (void)setObject:(id)anObject atIndexedSubscript:(NSUInteger)index;
+- (void)addObjectsFromList:(BMDoublyLinkedList *)list;
 
 // Removers
 - (id)popFront;
@@ -67,6 +74,7 @@ extern NSString *const BMDoublyLinkedListExceptionDictionaryFailedSearchedForNod
 - (BMDoublyLinkedListNode *)nodeAtIndex:(NSUInteger)index;
 - (BMDoublyLinkedListNode *)nodeForObject:(id)anObject;
 - (NSArray *)arrayFromList;
+- (id)objectAtIndexedSubscript:(NSUInteger)index;
 
 // Queries
 - (BOOL)containsObject:(id)anObject;
@@ -75,6 +83,8 @@ extern NSString *const BMDoublyLinkedListExceptionDictionaryFailedSearchedForNod
 - (NSUInteger)indexForNode:(BMDoublyLinkedListNode *)aNode;
 - (BOOL)isOfSoundStructure;
 
+// Sorting
+- (void)sortListUsingComparator:(BMDoublyLinkedListSortComparatorBlock)sortComparatorBlock;
 
 
 @end

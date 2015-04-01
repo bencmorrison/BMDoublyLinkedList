@@ -307,6 +307,13 @@
     if (array[3] != [sut objectAtIndex:3]) {
         XCTFail(@"insertObjectAtIndex Test Failed in \"%s\"", __PRETTY_FUNCTION__);
     }
+    
+    NSNumber *firstNumber = @102;
+    
+    [sut insertObject:firstNumber atIndex:0];
+    
+    XCTAssertTrue((sut[0] == firstNumber), @"Inserting object at index 0 failed! Object at index 0 is: %@", sut[0]);
+    XCTAssertFalse((sut[1] == firstNumber), @"Inserting object at index 0 caused dup at index 1!");
 }
 
 
@@ -467,6 +474,76 @@
         XCTFail(@"emptyList failed to set the tail to nil in \"%s\"", __PRETTY_FUNCTION__);
     } else if (sut.count != 0) {
         XCTFail(@"emptyList failed to set the count to 0 in \"%s\"", __PRETTY_FUNCTION__);
+    }
+}
+
+
+
+- (void)testSortListUsingComparator {
+    NSMutableArray *array = @[@1, @3, @9, @2, @8, @10, @11, @13, @4, @39, @6].mutableCopy;
+    BMDoublyLinkedList *sut = [[BMDoublyLinkedList alloc] initFromArray:array];
+    
+    [array sortUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+        NSComparisonResult result = [obj1 compare:obj2];
+        return result;
+    }];
+    
+    
+    [sut sortListUsingComparator:^NSComparisonResult(id firstObject, id secondObject) {
+        NSComparisonResult result = [firstObject compare:secondObject];
+        return result;
+    }];
+
+    NSArray *sortedListAsArray = [sut arrayFromList];
+    
+    for (NSUInteger i = 0; i < sortedListAsArray.count; ++i) {
+        NSNumber *arrayNumber = array[i];
+        NSNumber *listNumber = sortedListAsArray[i];
+        
+        if ([arrayNumber compare:listNumber] != NSOrderedSame) {
+            XCTFail(@"List Sorting did not work correctly. Index: %lu", (unsigned long)i);
+        }
+    }
+}
+
+
+
+- (void)testSubscripting {
+    BMDoublyLinkedList *sut = [[BMDoublyLinkedList alloc] initFromArray:@[
+                                                                          @1, @2, @3, @4, @5
+                                                                          ]];
+    
+    XCTAssertTrue(([(NSNumber *)sut[0] compare:@1] == NSOrderedSame), @"Index 0 should equal 1, insread sut[0] = %@", sut[0]);
+    XCTAssertTrue(([(NSNumber *)sut[1] compare:@2] == NSOrderedSame), @"Index 1 should equal 2, insread sut[1] = %@", sut[1]);
+    XCTAssertTrue(([(NSNumber *)sut[2] compare:@3] == NSOrderedSame), @"Index 2 should equal 3, insread sut[2] = %@", sut[2]);
+    XCTAssertTrue(([(NSNumber *)sut[3] compare:@4] == NSOrderedSame), @"Index 3 should equal 4, insread sut[3] = %@", sut[3]);
+    XCTAssertTrue(([(NSNumber *)sut[4] compare:@5] == NSOrderedSame), @"Index 4 should equal 5, insread sut[4] = %@", sut[4]);
+    
+    XCTAssertTrue(([(NSNumber *)sut[2] compare:@3] == NSOrderedSame), @"Index 2 should equal 3, insread sut[2] = %@", sut[2]);
+    XCTAssertTrue(([(NSNumber *)sut[0] compare:@1] == NSOrderedSame), @"Index 0 should equal 1, insread sut[0] = %@", sut[0]);
+    XCTAssertTrue(([(NSNumber *)sut[4] compare:@5] == NSOrderedSame), @"Index 4 should equal 5, insread sut[4] = %@", sut[4]);
+    XCTAssertTrue(([(NSNumber *)sut[1] compare:@2] == NSOrderedSame), @"Index 1 should equal 2, insread sut[1] = %@", sut[1]);
+    XCTAssertTrue(([(NSNumber *)sut[1] compare:@2] == NSOrderedSame), @"Index 1 should equal 2, insread sut[1] = %@", sut[1]);
+}
+
+
+
+- (void)testSubListFromRange {
+    BMDoublyLinkedList *sut = [[BMDoublyLinkedList alloc] initFromArray:@[
+                                                                          @1, @2, @3, @4, @5, @6, @7, @8, @9
+                                                                          ]];
+    NSUInteger location = 2;
+    NSUInteger length = 4;
+    
+    BMDoublyLinkedList *subSut = [sut subListFromRange:NSMakeRange(location, length)];
+    
+    XCTAssertTrue((subSut.count == length), @"SubSut is not the correct length, should be: %lu, but is %lu", (unsigned long)length, (unsigned long)length);
+    
+    for (NSUInteger i = 0; i < length; ++i) {
+        NSNumber *lN = sut[i + location];
+        NSNumber *sN = subSut[i];
+        
+        XCTAssertTrue(([lN compare:sN] == NSOrderedSame), @"The subSut is not a sub List of sut. sut[%lu] = %@ subSut[%lu] = %@", (unsigned long) (i + location), lN, (unsigned long) i, sN);
     }
     
 }
